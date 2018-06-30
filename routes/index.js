@@ -16,58 +16,28 @@ router.post('/register/user', function(req, res){
       var lastName = req.body.lastname;
       var email = req.body.email;
       var password = req.body.password;
-      var password2 = req.body.password2;
-      var city = req.body.city;
-      var state = req.body.state;
 
-      //VALIDATION
-      req.check('password2', 'Passwords do not match').equals(req.body.password);
+      //POST NEW USER TO DATABASE
+      db.user.create(req.body).then(function(user) {
+            //AUTO SIGNIN NEW USER
+            req.login(user, function(err){
+                  console.log("inside req.login and it works, user.id: " + user.id);
 
-      var errors = req.validationErrors();
+                  if (err) {
+                        console.log(err);
+                        return next(err); 
+                  };
+                  console.log('newUsers first name is: ' + req.user.firstName);
+                  //need to redirect to react to display form data (income, expenses, etc...)
 
-      if(errors){
-            res.render('index',{
-                  errors:errors
-            });
-            
-      }else{
-            //POST NEW USER TO DATABASE
-            db.user.create(req.body).then(function(user) {
-                  //AUTO SIGNIN NEW USER
-                  req.login(user, function(err){
-                        console.log("inside req.login and it works, user.id: " + user.id);
-
-                        if (err) {
-                              console.log(err);
-                              return next(err); 
-                        };
-                        console.log('newUsers first name is: ' + req.user.firstName);
-                        return res.redirect('/dashboard');
-
-                  })
-            
-            });
-      };
+            })
+      
+      });
       
 });
 
-
-//CHECK IF USER ALREADY EXIST WITH EMAIL SUBMITTED
-router.get('/check/email', function(req, res){
-      db.user.findOne({
-            where: {
-                email: req.query.email
-            },
-      }).then(function(result){
-            res.json(result)
-            
-      });
-});
-
 //GO TO SIGNIN PAGE
-router.get('/user/signin', function(req, res){
-      res.render('signin', {layout:'exterior'});
-});
+router.get('/user/signin', function(req, res){      
 
 //SIGNIN USER
 
