@@ -65,6 +65,8 @@ router.use(function(req, res, next){
       };
 })
 
+
+
 //GO TO USER DASHBOARD
 router.get('/dashboard', function(req, res){
       console.log('this is the user: ' + req.user);
