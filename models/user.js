@@ -18,13 +18,6 @@ module.exports = function(sequelize, DataTypes) {
           notEmpty: true,
       }
     },
-    displayName: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      validate: {
-          notEmpty: true,
-      }
-    },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -41,14 +34,50 @@ module.exports = function(sequelize, DataTypes) {
           notEmpty: true,
       }
     },
-    profilePic: {
-      type: DataTypes.STRING,
+    income: {
+      type: DataTypes.INTEGER,
       allowNull: true,
     },
-    dob: {
-      type: DataTypes.DATEONLY,
+    creditCard: {
+      type: DataTypes.INTEGER,
       allowNull: true,
-    }
+    },
+    utilities: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    rentMortgage: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    groceries: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    transportation: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    payOffDebt: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    activities: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    travel: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    buyHouse: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    investmentFunds: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
   });
 
   user.validPassword = function(password, hash, result, done){
